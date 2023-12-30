@@ -26,4 +26,19 @@ public class HelloControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string(hello));
     }
+
+    @Test
+    public void helloDtoReturn() throws Exception {
+        String name = "hello";
+        int amount = 1000;
+
+        mvc.perform(MockMvcRequestBuilders.get("/hello/dto")
+                .param("name",name)
+                .param("amount", String.valueOf(amount)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("hello"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.amount").value(1000));
+        System.out.println(name);
+        System.out.println(amount);
+    }
 }
